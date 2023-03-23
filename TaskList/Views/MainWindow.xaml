@@ -15,30 +15,49 @@
     </Window.DataContext>
 
     <Grid>
-        
 
-        <DataGrid AutoGenerateColumns="False"
-                  Grid.Column="1"
-                  x:Name="dgContext"
-                  ItemsSource = "{Binding AllTasks}">
-            <DataGrid.Columns>
-                
-                <DataGridTextColumn Width="130"
-                                    Header="Date Of Creation"
-                                    IsReadOnly="True"
-                                    Binding="{Binding Path=SomeData}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
 
-                <DataGridCheckBoxColumn Header="Is Done"
-                                        Width="50"
-                                        Binding="{Binding Path=IsDone}"/>
+        <ListView ItemsSource = "{Binding AllTasks}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Date Of Creation"
+                                    DisplayMemberBinding="{Binding Path=SomeData}"
+                                    Width="150"/>
+                    
+                    <GridViewColumn Header="Is Done"
+                                    Width="50">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding Path=IsDone}"
+                                          Margin="10,0,0,0"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    
+                    <GridViewColumn Header="Task"
+                                    DisplayMemberBinding="{Binding Path=TextTask}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
 
-                <DataGridTextColumn Header="Task"
-                                    Width="*"
-                                    IsReadOnly="False"
-                                    Binding="{Binding Path=TextTask}"/>
-                
-            </DataGrid.Columns>
-        </DataGrid>
-        
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="1"
+                    HorizontalAlignment="Right">
+            
+            <TextBox Width="300"
+                     Margin="10"/>
+            
+            <Button Content="+"
+                    Margin="10"
+                    Width="20"
+                    Height="20"
+                    Command="{Binding AddCommand}"/>
+            
+        </StackPanel>
+
     </Grid>
 </Window>
