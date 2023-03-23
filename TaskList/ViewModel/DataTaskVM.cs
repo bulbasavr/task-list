@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using TaskList.Models;
+using TaskList.Views;
 
 namespace TaskList.ViewModel
 {
@@ -10,16 +11,6 @@ namespace TaskList.ViewModel
     {
         private List<Task> _allTasks = DataTask.GetAllTasks();
         public string? NewTextTask { get; set; }
-        /*
-        private List<Task> _allTasks = new List<Task>()
-            {
-                new Task(){IsDone = false, TextTask = "test"},
-                new Task(){IsDone = true, TextTask = "test"},
-                new Task(){IsDone = false, TextTask = "test"},
-                new Task(){IsDone = true, TextTask = "test"},
-                new Task(){IsDone = false, TextTask = "test"},
-                new Task(){IsDone = true, TextTask = "test"}
-            };*/
 
         public List<Task> AllTasks
         {
@@ -51,6 +42,11 @@ namespace TaskList.ViewModel
                         MessageBox.Show("Entry added");
                     }));
             }
+        }
+
+        private void UpdateMainWindow()
+        {
+            
         }
 
     }
