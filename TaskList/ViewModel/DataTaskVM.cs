@@ -38,18 +38,26 @@ namespace TaskList.ViewModel
                     (_deleteCommand = new RelayCommand(obj =>
                     {
                         ObservableCollection<Task> newList = new ObservableCollection<Task>();
+                        List<Task> deleteTask = new List<Task>();
                         foreach (Task task in AllTasks)
                         {
                             if (task.IsDone == true)
                             {
-                                DataTask.DeleteTask(task);
+                                deleteTask.Add(task);
                             }
                             else
                             {
                                 newList.Add(task);
                             }
                         }
+
+                        foreach (Task task in deleteTask)
+                        {
+                            DataTask.DeleteTask(task);
+                        }
+
                         AllTasks.Clear();
+
                         foreach (Task task in newList)
                         {
                             AllTasks.Add(task);
