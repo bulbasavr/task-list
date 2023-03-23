@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace TaskList.Models
@@ -12,7 +10,7 @@ namespace TaskList.Models
             using (ApplicationContext db = new ApplicationContext())
             {
                 ObservableCollection<Task> result = new ObservableCollection<Task>();
-                var allTasks = db.Task.ToList();
+                var allTasks = db.Task.ToArray();
                 foreach (var task in allTasks)
                 {
                     result.Add(task);
@@ -43,17 +41,6 @@ namespace TaskList.Models
         {
             using (ApplicationContext db = new ApplicationContext())
             {
-                db.Task.Remove(task);
-                db.SaveChanges();
-            }
-        }
-
-        public static void EditTask(Task oldTask, string newTextTask)
-        {
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                Task task = db.Task.FirstOrDefault(el => el.Id == oldTask.Id);
-                task.TextTask = newTextTask;
                 db.Task.Remove(task);
                 db.SaveChanges();
             }
