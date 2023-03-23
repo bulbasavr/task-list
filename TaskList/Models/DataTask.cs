@@ -15,11 +15,11 @@ namespace TaskList.Models
             }
         }
 
-        public static void CreateTask(DateTime someData, bool isDone, string textTask)
+        public static void CreateTask(bool isDone, string textTask)
         {
             using (ApplicationContext db = new ApplicationContext())
             {
-                bool checkIsExist = db.Task.Any(el => el.SomeData == someData && el.IsDone == isDone && el.TextTask == textTask);
+                bool checkIsExist = db.Task.Any(el => el.IsDone == isDone && el.TextTask == textTask);
                 if (!checkIsExist)
                 {
                     Task newTask = new Task()

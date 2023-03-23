@@ -8,7 +8,9 @@ namespace TaskList.ViewModel
 {
     public class DataTaskVM : INotifyPropertyChanged
     {
-        //private List<Task> _allTasks = DataTask.GetAllTasks();
+        private List<Task> _allTasks = DataTask.GetAllTasks();
+        public string? NewTextTask { get; set; }
+        /*
         private List<Task> _allTasks = new List<Task>()
             {
                 new Task(){IsDone = false, TextTask = "test"},
@@ -17,7 +19,7 @@ namespace TaskList.ViewModel
                 new Task(){IsDone = true, TextTask = "test"},
                 new Task(){IsDone = false, TextTask = "test"},
                 new Task(){IsDone = true, TextTask = "test"}
-            };
+            };*/
 
         public List<Task> AllTasks
         {
@@ -45,7 +47,8 @@ namespace TaskList.ViewModel
                 return _addCommand ??
                     (_addCommand = new RelayCommand(obj =>
                     {
-                        MessageBox.Show("Message");
+                        DataTask.CreateTask(false, NewTextTask);
+                        MessageBox.Show("Entry added");
                     }));
             }
         }
