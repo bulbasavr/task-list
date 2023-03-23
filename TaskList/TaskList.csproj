@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Models\ApplicationContext.cs~RF25f38e9.TMP" />
+    <None Remove="Models\ApplicationContext.cs~RF260065b.TMP" />
+    <None Remove="Models\bmp1bvs0.pxs~" />
+    <None Remove="Models\Task.cs~RF1cfff82.TMP" />
+    <None Remove="Models\Task.cs~RF20b0fbf.TMP" />
+    <None Remove="Models\Task.cs~RF21a34d2.TMP" />
+    <None Remove="Models\Task.cs~RF22ce260.TMP" />
+    <None Remove="Models\Task.cs~RF2534102.TMP" />
+    <None Remove="Models\Task.cs~RF257e0e8.TMP" />
+    <None Remove="Models\Task.cs~RF4a473a7.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
+  </ItemGroup>
+
+</Project>
