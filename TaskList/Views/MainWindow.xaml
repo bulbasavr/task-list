@@ -59,7 +59,13 @@
                     Width="20"
                     Height="20"
                     Command="{Binding AddCommand}"/>
-            
+
+            <Button Content="-"
+                    Margin="10"
+                    Width="20"
+                    Height="20"
+                    Command="{Binding DeleteCommand}"/>
+
         </StackPanel>
 
     </Grid>

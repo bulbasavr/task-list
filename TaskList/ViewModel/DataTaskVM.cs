@@ -9,19 +9,10 @@ using TaskList.Views;
 
 namespace TaskList.ViewModel
 {
-    public class DataTaskVM : INotifyPropertyChanged
+    public class DataTaskVM
     {
         public ObservableCollection<Task> AllTasks { get; set; } = DataTask.GetAllTasks();
         public string? NewTextTask { get; set; }
-
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
 
         private RelayCommand _addCommand;
         public RelayCommand AddCommand
@@ -34,6 +25,35 @@ namespace TaskList.ViewModel
                         DataTask.CreateTask(false, NewTextTask);
 
                         AllTasks.Add(new Task() {SomeData = DateTime.Now, IsDone = false, TextTask = NewTextTask});
+                    }));
+            }
+        }
+
+        private RelayCommand _deleteCommand;
+        public RelayCommand DeleteCommand
+        {
+            get
+            {
+                return _deleteCommand ??
+                    (_deleteCommand = new RelayCommand(obj =>
+                    {
+                        ObservableCollection<Task> newList = new ObservableCollection<Task>();
+                        foreach (Task task in AllTasks)
+                        {
+                            if (task.IsDone == true)
+                            {
+                                DataTask.DeleteTask(task);
+                            }
+                            else
+                            {
+                                newList.Add(task);
+                            }
+                        }
+                        AllTasks.Clear();
+                        foreach (Task task in newList)
+                        {
+                            AllTasks.Add(task);
+                        }
                     }));
             }
         }
