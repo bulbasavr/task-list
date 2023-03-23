@@ -34,7 +34,6 @@ namespace TaskList.ViewModel
                         DataTask.CreateTask(false, NewTextTask);
 
                         AllTasks.Add(new Task() {SomeData = DateTime.Now, IsDone = false, TextTask = NewTextTask});
-
                     }));
             }
         }

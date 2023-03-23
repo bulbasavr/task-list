@@ -10,7 +10,6 @@ namespace TaskList.Views
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new DataTaskVM();
         }
     }
 }
