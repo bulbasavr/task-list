@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -9,18 +11,9 @@ namespace TaskList.ViewModel
 {
     public class DataTaskVM : INotifyPropertyChanged
     {
-        private List<Task> _allTasks = DataTask.GetAllTasks();
+        public ObservableCollection<Task> AllTasks { get; set; } = DataTask.GetAllTasks();
         public string? NewTextTask { get; set; }
 
-        public List<Task> AllTasks
-        {
-            get { return _allTasks; }
-            set
-            {
-                _allTasks = value;
-                OnPropertyChanged("AllTasks");
-            }
-        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -39,15 +32,11 @@ namespace TaskList.ViewModel
                     (_addCommand = new RelayCommand(obj =>
                     {
                         DataTask.CreateTask(false, NewTextTask);
-                        MessageBox.Show("Entry added");
+
+                        AllTasks.Add(new Task() {SomeData = DateTime.Now, IsDone = false, TextTask = NewTextTask});
+
                     }));
             }
         }
-
-        private void UpdateMainWindow()
-        {
-            
-        }
-
     }
 }

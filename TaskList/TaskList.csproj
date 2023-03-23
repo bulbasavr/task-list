@@ -18,6 +18,7 @@
     <None Remove="Models\Task.cs~RF2534102.TMP" />
     <None Remove="Models\Task.cs~RF257e0e8.TMP" />
     <None Remove="Models\Task.cs~RF4a473a7.TMP" />
+    <None Remove="ViewModel\DataTaskVM.cs~RF1c5411f7.TMP" />
   </ItemGroup>
 
   <ItemGroup>

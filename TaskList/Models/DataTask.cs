@@ -1,16 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace TaskList.Models
 {
     public static class DataTask
     {
-        public static List<Task> GetAllTasks()
+        public static ObservableCollection<Task> GetAllTasks()
         {
             using (ApplicationContext db = new ApplicationContext())
             {
-                var result = db.Task.ToList();
+                ObservableCollection<Task> result = new ObservableCollection<Task>();
+                var allTasks = db.Task.ToList();
+                foreach (var task in allTasks)
+                {
+                    result.Add(task);
+                }
                 return result;
             }
         }

@@ -21,7 +21,9 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
-        <ListView ItemsSource = "{Binding AllTasks}">
+
+        <ListView ItemsSource = "{Binding AllTasks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  x:Name="AllTasksView">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Date Of Creation"
