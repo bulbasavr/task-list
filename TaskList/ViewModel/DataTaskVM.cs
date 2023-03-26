@@ -3,15 +3,25 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows;
 using TaskList.Models;
-using TaskList.Views;
 
 namespace TaskList.ViewModel
 {
     public class DataTaskVM
     {
-        public ObservableCollection<Task> AllTasks { get; set; } = DataTask.GetAllTasks();
+        public ObservableCollection<Task> _allTasks = DataTask.GetAllTasks();
+        public ObservableCollection<Task> AllTasks
+        {
+            get
+            {
+                return _allTasks;
+            }
+            set
+            {
+                _allTasks = value;
+            }
+        }
+
         public string? NewTextTask { get; set; }
 
         private RelayCommand _addCommand;
@@ -22,9 +32,8 @@ namespace TaskList.ViewModel
                 return _addCommand ??
                     (_addCommand = new RelayCommand(obj =>
                     {
-                        DataTask.CreateTask(false, NewTextTask);
+                        AllTasks.Add(DataTask.CreateTask(false, NewTextTask));
 
-                        AllTasks.Add(new Task() {SomeData = DateTime.Now, IsDone = false, TextTask = NewTextTask});
                     }));
             }
         }

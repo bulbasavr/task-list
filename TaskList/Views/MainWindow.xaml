@@ -21,7 +21,6 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
-
         <ListView ItemsSource = "{Binding AllTasks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   BorderThickness="0">
             <ListView.View>
