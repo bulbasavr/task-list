@@ -32,7 +32,12 @@ namespace TaskList.ViewModel
                 return _addCommand ??
                     (_addCommand = new RelayCommand(obj =>
                     {
-                        AllTasks.Add(DataTask.CreateTask(false, NewTextTask));
+                        DataTask.CreateTask(false, NewTextTask);
+                        AllTasks.Clear();
+                        foreach (Task task in DataTask.GetAllTasks())
+                        {
+                            AllTasks.Add(task);
+                        }
 
                     }));
             }
@@ -46,28 +51,17 @@ namespace TaskList.ViewModel
                 return _deleteCommand ??
                     (_deleteCommand = new RelayCommand(obj =>
                     {
-                        ObservableCollection<Task> newList = new ObservableCollection<Task>();
-                        List<Task> deleteTask = new List<Task>();
                         foreach (Task task in AllTasks)
                         {
                             if (task.IsDone == true)
                             {
-                                deleteTask.Add(task);
+                                DataTask.DeleteTask(task);
                             }
-                            else
-                            {
-                                newList.Add(task);
-                            }
-                        }
-
-                        foreach (Task task in deleteTask)
-                        {
-                            DataTask.DeleteTask(task);
                         }
 
                         AllTasks.Clear();
 
-                        foreach (Task task in newList)
+                        foreach (Task task in DataTask.GetAllTasks())
                         {
                             AllTasks.Add(task);
                         }

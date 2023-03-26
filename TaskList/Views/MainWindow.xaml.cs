@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Windows;
-using TaskList.ViewModel;
-using TaskList.Models;
+﻿using System.Windows;
 
 namespace TaskList.Views
 {

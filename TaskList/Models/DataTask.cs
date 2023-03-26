@@ -20,7 +20,7 @@ namespace TaskList.Models
             }
         }
 
-        public static Task CreateTask(bool isDone, string textTask)
+        public static void CreateTask(bool isDone, string textTask)
         {
             using (ApplicationContext db = new ApplicationContext())
             {
@@ -35,9 +35,7 @@ namespace TaskList.Models
                     };
                     db.Task.Add(newTask);
                     db.SaveChanges();
-                    return newTask;
                 }
-            return new Task();
             }
         }
 

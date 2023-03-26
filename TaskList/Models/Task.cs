@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using System;
 
 namespace TaskList.Models;
 
