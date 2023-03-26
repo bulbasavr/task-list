@@ -50,7 +50,7 @@
             
             <TextBox Width="300"
                      Margin="10"
-                     Text="{Binding Path=NewTextTask, Mode=TwoWay}"/>
+                     Text="{Binding Path=NewTextTask, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             
             <Button Content="+"
                     Margin="10"

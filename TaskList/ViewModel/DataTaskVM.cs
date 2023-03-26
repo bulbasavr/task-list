@@ -1,12 +1,24 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using TaskList.Models;
 
 namespace TaskList.ViewModel
 {
-    public class DataTaskVM
+    public class DataTaskVM : INotifyPropertyChanged
     {
         public ObservableCollection<Task> AllTasks { get; set; } = DataTask.GetAllTasks();
-        public string? NewTextTask { get; set; }
+
+        private string _newTextTask;
+        public string NewTextTask
+        {
+            get { return _newTextTask; }
+            set
+            {
+                _newTextTask = value;
+                OnPropertyChanged();
+            }
+        }
 
 
         private RelayCommand _addCommand;
@@ -19,6 +31,8 @@ namespace TaskList.ViewModel
                     {
                         DataTask.CreateTask(false, NewTextTask);
                         AllTasks.Clear();
+                        NewTextTask = "";
+
                         foreach (Task task in DataTask.GetAllTasks())
                         {
                             AllTasks.Add(task);
@@ -53,6 +67,14 @@ namespace TaskList.ViewModel
                         }
                     }));
             }
+        }
+
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
     }
 }
