@@ -9,20 +9,9 @@ namespace TaskList.ViewModel
 {
     public class DataTaskVM
     {
-        public ObservableCollection<Task> _allTasks = DataTask.GetAllTasks();
-        public ObservableCollection<Task> AllTasks
-        {
-            get
-            {
-                return _allTasks;
-            }
-            set
-            {
-                _allTasks = value;
-            }
-        }
-
+        public ObservableCollection<Task> AllTasks { get; set; } = DataTask.GetAllTasks();
         public string? NewTextTask { get; set; }
+
 
         private RelayCommand _addCommand;
         public RelayCommand AddCommand
@@ -42,6 +31,7 @@ namespace TaskList.ViewModel
                     }));
             }
         }
+
 
         private RelayCommand _deleteCommand;
         public RelayCommand DeleteCommand
