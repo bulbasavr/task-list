@@ -10,17 +10,20 @@
         x:Name="MWindow"   
         Title="TaskList"
         Height="590"
-        Width="420">
+        Width="420"
+        MinHeight="120"
+        MinWidth="420">
     
     <Window.DataContext>
         <vm:DataTaskVM/>
     </Window.DataContext>
+    
 
     <Grid HorizontalAlignment="Center">
 
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="90"/>
         </Grid.RowDefinitions>
 
         <ListBox ItemsSource = "{Binding AllTasks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -29,7 +32,6 @@
                  Grid.Row="0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-
                     <Border Margin="5"
                             x:Name="MainBorder"
                             Padding="10"
@@ -44,11 +46,61 @@
                                     <ColumnDefinition Width="30"/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                
+
                                 <CheckBox IsChecked="{Binding IsDone}"
-                                          HorizontalAlignment="Center"
-                                          Background="{Binding Background, ElementName=MWindow}"
-                                          BorderBrush="{Binding BorderBrush, ElementName=MainBorder}"/>
+                                          HorizontalAlignment="Center">
+
+                                    <CheckBox.Style>
+                                        <Style TargetType="CheckBox">
+                                            <Setter Property="SnapsToDevicePixels" Value="False" />
+                                            <Setter Property="OverridesDefaultStyle" Value="true" />
+                                            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                                            <Setter Property="BorderBrush" Value="{Binding BorderBrush, ElementName=MainBorder}" />
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="CheckBox">
+                                                        <BulletDecorator Background="Transparent">
+                                                            <BulletDecorator.Bullet>
+                                                                <Border x:Name="Border"
+                                                                        Width="20"
+                                                                        Height="20"
+                                                                        Background="{Binding Background, ElementName=MWindow}"
+                                                                        CornerRadius="2"
+                                                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                                                        BorderThickness="2"
+                                                                        ClipToBounds="True">
+                                                                    <Path x:Name="CheckMark"
+                                                                          Width="12"
+                                                                          Height="12"
+                                                                          HorizontalAlignment="Center"
+                                                                          VerticalAlignment="Center"
+                                                                          Data="M27.903015,0L32,4.0970465 12.369019,23.728029 11.685974,24.520998 0,14.441042 3.7819824,10.054994 11.330017,16.567019z"
+                                                                          Fill="#bf8a4c"
+                                                                          Stretch="Fill"
+                                                                          Stroke="Transparent"
+                                                                          StrokeEndLineCap="Round"
+                                                                          StrokeStartLineCap="Round"
+                                                                          StrokeThickness="1" />
+                                                                </Border>
+                                                            </BulletDecorator.Bullet>
+                                                            <ContentPresenter Margin="4,0,0,0"
+                                                                              HorizontalAlignment="Left"
+                                                                              VerticalAlignment="Center"
+                                                                              RecognizesAccessKey="True" />
+                                                        </BulletDecorator>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsChecked" Value="false">
+                                                                <Setter TargetName="CheckMark" Property="Visibility" Value="Collapsed" />
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </CheckBox.Style>
+
+                                </CheckBox>
+                                
                                 <TextBlock Text="{Binding TextTask}"
                                            Grid.Column="1"
                                            TextWrapping="Wrap"
@@ -56,38 +108,104 @@
                                            FontWeight="Bold"
                                            FontSize="15"/>
                             </Grid>
+                            
                             <TextBlock Text="{Binding SomeData}"
-                                       Margin="20, 10, 0, 0"
+                                       Margin="20,10,0,0"
                                        Foreground="Gray"
                                        FontSize="10"
                                        TextWrapping="Wrap"/>
                         </StackPanel>
                     </Border>
-
+                    
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <StackPanel Orientation="Horizontal"
-                    Grid.Row="1"
-                    Background="#242424">
-            
-            <TextBox Width="300"
-                     Margin="10"
-                     Background="{Binding Background, ElementName=MWindow}"
-                     Text="{Binding Path=NewTextTask, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            
-            <Button Content="+"
-                    Margin="10"
-                    Width="20"
-                    Height="20"
-                    Command="{Binding AddCommand}"/>
+        <StackPanel Grid.Row="1"
+                    Background="#373737">
 
-            <Button Content="-"
-                    Margin="10"
-                    Width="20"
-                    Height="20"
-                    Command="{Binding DeleteCommand}"/>
+            <Border BorderBrush="#bf8a4c"
+                    Margin="2"
+                    BorderThickness="3"
+                    CornerRadius="5">
+                <TextBox Width="300"
+                         Margin="10"
+                         FontSize="15"
+                         CaretBrush="#bf8a4c"
+                         BorderThickness="0"
+                         Foreground="#bf8a4c"
+                         Background="Transparent"
+                         Text="{Binding Path=NewTextTask, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </Border>
+            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Button Content="Add new task"
+                        FontSize="20"
+                        Grid.Column="0"
+                        Margin="2"
+                        Height="35"
+                        BorderThickness="0"
+                        Foreground="#2b2b2b"
+                        Command="{Binding AddCommand}">
+
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#bf8a4c"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#d6a872"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="3"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <Button Content="Remove checked"
+                        Grid.Column="1"
+                        Margin="2"
+                        Height="35"
+                        BorderThickness="0"
+                        FontSize="20"
+                        Foreground="#2b2b2b"
+                        Command="{Binding DeleteCommand}">
+
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#bf8a4c"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#d6a872"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="3"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
 
         </StackPanel>
 
