@@ -80,17 +80,23 @@
                                                                           Stroke="Transparent"
                                                                           StrokeEndLineCap="Round"
                                                                           StrokeStartLineCap="Round"
-                                                                          StrokeThickness="1" />
+                                                                          StrokeThickness="1"/>
                                                                 </Border>
                                                             </BulletDecorator.Bullet>
                                                             <ContentPresenter Margin="4,0,0,0"
                                                                               HorizontalAlignment="Left"
                                                                               VerticalAlignment="Center"
-                                                                              RecognizesAccessKey="True" />
+                                                                              RecognizesAccessKey="True"/>
                                                         </BulletDecorator>
                                                         <ControlTemplate.Triggers>
                                                             <Trigger Property="IsChecked" Value="false">
-                                                                <Setter TargetName="CheckMark" Property="Visibility" Value="Collapsed" />
+                                                                <Setter TargetName="CheckMark" Property="Visibility" Value="Collapsed"/>
+                                                            </Trigger>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter TargetName="Border"  Property="BorderBrush" Value="#d6a872"/>
+                                                            </Trigger>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter TargetName="CheckMark"  Property="Fill" Value="#d6a872"/>
                                                             </Trigger>
                                                         </ControlTemplate.Triggers>
                                                     </ControlTemplate>
