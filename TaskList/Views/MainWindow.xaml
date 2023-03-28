@@ -6,270 +6,403 @@
         xmlns:local="clr-namespace:TaskList.Views"
         xmlns:vm="clr-namespace:TaskList.ViewModel"
         mc:Ignorable="d"
-        Background="#2b2b2b"
-        x:Name="MWindow"   
+        Background="Transparent"
+        x:Name="MWindow"
         Title="TaskList"
-        Height="590"
-        Width="500"
-        MinHeight="120"
-        MinWidth="40">
+        Height="680"
+        Width="520"
+        MinHeight="78"
+        MinWidth="155"
+        WindowStyle="None"
+        ResizeMode="CanResize"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen">
 
     <Window.DataContext>
         <vm:DataTaskVM/>
     </Window.DataContext>
 
-    <Window.Style>
-        <Style TargetType="Window">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="WindowStyle" Value="None" />
-            <Setter Property="ResizeMode" Value="CanResize" />
-            <Setter Property="AllowsTransparency" Value="True" />
-            <Setter Property="WindowChrome.WindowChrome">
-                <Setter.Value>
-                    <WindowChrome CaptionHeight="30" ResizeBorderThickness="20" />
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Window.Style>
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" ResizeBorderThickness="24"/>
+    </WindowChrome.WindowChrome>
 
-    <Grid HorizontalAlignment="Center">
+    <Border Background="#2b2b2b"
+            CornerRadius="8"
+            MouseLeftButtonDown="Border_MouseDown"
+            Margin="20">
+        <Border.Effect>
+            <DropShadowEffect Direction="0"
+                              ShadowDepth="0"
+                              BlurRadius="20"
+                              Opacity="0.25"
+                              Color="#2b2b2b"></DropShadowEffect>
+        </Border.Effect>
 
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="90"/>
-        </Grid.RowDefinitions>
+        <Grid>
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto"
-              HorizontalScrollBarVisibility="Auto">
-        
-        <ListBox ItemsSource = "{Binding AllTasks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 Background="{Binding Background, ElementName=MWindow}"
-                 BorderThickness="0"
-                 Grid.Row="0"
-                 HorizontalAlignment="Center">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Border Margin="15,2"
-                            x:Name="MainBorder"
-                            Padding="10"
-                            Width="350"
-                            CornerRadius="15"
-                            BorderThickness="3"
-                            BorderBrush="#bf8a4c"
-                            Background="{Binding Background, ElementName=MWindow}">
-                        <StackPanel>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="30"/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
 
-                                <CheckBox IsChecked="{Binding IsDone}"
-                                          HorizontalAlignment="Center">
+            <Border Background="#373737"
+                    CornerRadius="8"
+                    Margin="0,0,0,15"
+                    Grid.Row="0">
 
-                                    <CheckBox.Style>
-                                        <Style TargetType="CheckBox">
-                                            <Setter Property="SnapsToDevicePixels" Value="True" />
-                                            <Setter Property="OverridesDefaultStyle" Value="True" />
-                                            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                                            <Setter Property="BorderBrush" Value="{Binding BorderBrush, ElementName=MainBorder}" />
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate TargetType="CheckBox">
-                                                        <BulletDecorator Background="Transparent">
-                                                            <BulletDecorator.Bullet>
-                                                                <Border x:Name="Border"
-                                                                        Width="20"
-                                                                        Height="20"
-                                                                        Background="{Binding Background, ElementName=MWindow}"
-                                                                        CornerRadius="2"
-                                                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                                                        BorderThickness="2"
-                                                                        ClipToBounds="True">
-                                                                    <Path x:Name="CheckMark"
-                                                                          Width="12"
-                                                                          Height="12"
-                                                                          HorizontalAlignment="Center"
-                                                                          VerticalAlignment="Center"
-                                                                          Data="M27.903015,0L32,4.0970465 12.369019,23.728029 11.685974,24.520998 0,14.441042 3.7819824,10.054994 11.330017,16.567019z"
-                                                                          Fill="#bf8a4c"
-                                                                          Stretch="Fill"
-                                                                          Stroke="Transparent"
-                                                                          StrokeEndLineCap="Round"
-                                                                          StrokeStartLineCap="Round"
-                                                                          StrokeThickness="1"/>
-                                                                </Border>
-                                                            </BulletDecorator.Bullet>
-                                                            <ContentPresenter Margin="4,0,0,0"
-                                                                              HorizontalAlignment="Left"
-                                                                              VerticalAlignment="Center"
-                                                                              RecognizesAccessKey="True"/>
-                                                        </BulletDecorator>
-                                                        <ControlTemplate.Triggers>
-                                                            <Trigger Property="IsChecked" Value="false">
-                                                                <Setter TargetName="CheckMark" Property="Visibility" Value="Collapsed"/>
-                                                            </Trigger>
-                                                            <Trigger Property="IsMouseOver" Value="True">
-                                                                <Setter TargetName="Border"  Property="BorderBrush" Value="#d6a872"/>
-                                                            </Trigger>
-                                                            <Trigger Property="IsMouseOver" Value="True">
-                                                                <Setter TargetName="CheckMark"  Property="Fill" Value="#d6a872"/>
-                                                            </Trigger>
-                                                        </ControlTemplate.Triggers>
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </Style>
-                                    </CheckBox.Style>
+                <StackPanel HorizontalAlignment="Right"
+                            Orientation="Horizontal">
 
-                                </CheckBox>
-                                
-                                <TextBlock Text="{Binding TextTask}"
-                                           Grid.Column="1"
-                                           TextWrapping="Wrap"
-                                           Foreground="#bf8a4c"
-                                           FontWeight="Bold"
-                                           FontSize="15"/>
-                            </Grid>
-                            
-                            <TextBlock Text="{Binding SomeData}"
-                                       Margin="20,10,0,0"
-                                       Foreground="Gray"
-                                       FontSize="10"
-                                       TextWrapping="Wrap"/>
-                        </StackPanel>
-                    </Border>
-                    
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem">
-                    
-                    
-                    
-                    <Setter Property="Background" Value="Transparent"/>
-                    <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment,
-                        RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-                    <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment,
-                        RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-                    <Setter Property="Padding" Value="2,0,0,0"/>
-                    <Setter Property="FocusVisualStyle">
-                        <Setter.Value>
-                            <Style>
-                                <Setter Property="Control.Template" Value="{x:Null}"/>
-                            </Style>
-                        </Setter.Value>
-                    </Setter>
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True">
-                                    <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                                </Border>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsEnabled" Value="False">
-                                        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                    <Button Click="ButtonMinimize_Click"
+                            FontSize="10"
+                            BorderThickness="0"
+                            Width="23"
+                            Height="23"
+                            Margin="3,3,5,3"
+                            Foreground="#2b2b2b">
+                        
+                        <TextBlock Text="_"
+                                   FontSize="20"
+                                   Margin="0,-14,0,0"/>
+
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="Green"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#d6a872"/>
                                     </Trigger>
-                                </ControlTemplate.Triggers>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border CornerRadius="10"
+                                            Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                          HorizontalAlignment="Center"/>
+                                </Border>
                             </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                    
-                    
-                    
-                </Style>
-            </ListBox.ItemContainerStyle>
-        </ListBox>
-        
-    </ScrollViewer>
+                        </Button.Template>
+                    </Button>
 
-        <StackPanel Grid.Row="1"
-                    Background="#373737">
 
-            <Border BorderBrush="#bf8a4c"
-                    Margin="2"
-                    BorderThickness="3"
-                    CornerRadius="5">
-                <TextBox Width="380"
-                         Margin="10"
-                         FontSize="15"
-                         CaretBrush="#bf8a4c"
-                         BorderThickness="0"
-                         Foreground="#bf8a4c"
-                         Background="Transparent"
-                         Text="{Binding Path=NewTextTask, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <Button BorderThickness="0"
+                            Width="23"
+                            Height="23"
+                            Margin="3,3,5,3"
+                            Foreground="#2b2b2b">
+                        <TextBlock Text="□"
+                                   FontSize="20"
+                                   Margin="0,-7,0,0"/>
+
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#bf8a4c"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#d6a872"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border CornerRadius="10"
+                                            Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                          HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+
+
+                    <Button Click="CloseButton_Click"
+                            BorderThickness="0"
+                            Width="23"
+                            Height="23"
+                            Margin="3,3,15,3"
+                            Foreground="#2b2b2b">
+
+                        <TextBlock Text="✕"
+                                   FontSize="15"
+                                   Margin="0,-1,0,0"/>
+
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="Red"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#d6a872"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border CornerRadius="10"
+                                            Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                          HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                </StackPanel>
+
             </Border>
+        
+            <Grid HorizontalAlignment="Center"
+                  Grid.Row="1">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="110"/>
+                </Grid.RowDefinitions>
+
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Auto"
+                              Grid.Row="0">
+
+                    <ListBox ItemsSource = "{Binding AllTasks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Background="{Binding Background, ElementName=MWindow}"
+                             BorderThickness="0"
+                             HorizontalAlignment="Center">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border Margin="15,2"
+                                        x:Name="MainBorder"
+                                        Padding="10"
+                                        Width="350"
+                                        CornerRadius="15"
+                                        BorderThickness="3"
+                                        BorderBrush="#bf8a4c"
+                                        Background="{Binding Background, ElementName=MWindow}">
+                                    <StackPanel>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="30"/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <CheckBox IsChecked="{Binding IsDone}"
+                                                      HorizontalAlignment="Center">
+
+                                                <CheckBox.Style>
+                                                    <Style TargetType="CheckBox">
+                                                        <Setter Property="SnapsToDevicePixels" Value="True" />
+                                                        <Setter Property="OverridesDefaultStyle" Value="True" />
+                                                        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                                                        <Setter Property="BorderBrush" Value="{Binding BorderBrush, ElementName=MainBorder}" />
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
+                                                                <ControlTemplate TargetType="CheckBox">
+                                                                    <BulletDecorator Background="Transparent">
+                                                                        <BulletDecorator.Bullet>
+                                                                            <Border x:Name="Border"
+                                                                                    Width="20"
+                                                                                    Height="20"
+                                                                                    Background="{Binding Background, ElementName=MWindow}"
+                                                                                    CornerRadius="2"
+                                                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                                                    BorderThickness="2"
+                                                                                    ClipToBounds="True">
+                                                                                <Path x:Name="CheckMark"
+                                                                                      Width="12"
+                                                                                      Height="12"
+                                                                                      HorizontalAlignment="Center"
+                                                                                      VerticalAlignment="Center"
+                                                                                      Data="M27.903015,0L32,4.0970465 12.369019,23.728029 11.685974,24.520998 0,14.441042 3.7819824,10.054994 11.330017,16.567019z"
+                                                                                      Fill="#bf8a4c"
+                                                                                      Stretch="Fill"
+                                                                                      Stroke="Transparent"
+                                                                                      StrokeEndLineCap="Round"
+                                                                                      StrokeStartLineCap="Round"
+                                                                                      StrokeThickness="1"/>
+                                                                            </Border>
+                                                                        </BulletDecorator.Bullet>
+                                                                        <ContentPresenter Margin="4,0,0,0"
+                                                                                          HorizontalAlignment="Left"
+                                                                                          VerticalAlignment="Center"
+                                                                                          RecognizesAccessKey="True"/>
+                                                                    </BulletDecorator>
+                                                                    <ControlTemplate.Triggers>
+                                                                        <Trigger Property="IsChecked" Value="false">
+                                                                            <Setter TargetName="CheckMark" Property="Visibility" Value="Collapsed"/>
+                                                                        </Trigger>
+                                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                                            <Setter TargetName="Border"  Property="BorderBrush" Value="#d6a872"/>
+                                                                        </Trigger>
+                                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                                            <Setter TargetName="CheckMark"  Property="Fill" Value="#d6a872"/>
+                                                                        </Trigger>
+                                                                    </ControlTemplate.Triggers>
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Style>
+                                                </CheckBox.Style>
+
+                                            </CheckBox>
+
+                                            <TextBlock Text="{Binding TextTask}"
+                                                       Grid.Column="1"
+                                                       TextWrapping="Wrap"
+                                                       Foreground="#bf8a4c"
+                                                       FontWeight="Bold"
+                                                       FontSize="15"/>
+                                        </Grid>
+
+                                        <TextBlock Text="{Binding SomeData}"
+                                                   Margin="20,10,0,0"
+                                                   Foreground="Gray"
+                                                   FontSize="10"
+                                                   TextWrapping="Wrap"/>
+                                    </StackPanel>
+                                </Border>
+
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+
+
+
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment,
+                                    RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                                <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment,
+                                    RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                                <Setter Property="Padding" Value="2,0,0,0"/>
+                                <Setter Property="FocusVisualStyle">
+                                    <Setter.Value>
+                                        <Style>
+                                            <Setter Property="Control.Template" Value="{x:Null}"/>
+                                        </Style>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True">
+                                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsEnabled" Value="False">
+                                                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+
+
+
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                    </ListBox>
+
+                </ScrollViewer>
+
+                <StackPanel Grid.Row="1"
+                            Background="#373737">
+
+                    <Border BorderBrush="#bf8a4c"
+                            Margin="2"
+                            BorderThickness="3"
+                            CornerRadius="5">
+                        <TextBox Width="380"
+                                 Margin="10"
+                                 FontSize="15"
+                                 CaretBrush="#bf8a4c"
+                                 BorderThickness="0"
+                                 Foreground="#bf8a4c"
+                                 Background="Transparent"
+                                 Text="{Binding Path=NewTextTask, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Border>
             
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
 
-                <Button Content="Add new task"
-                        FontSize="20"
-                        Grid.Column="0"
-                        Margin="2"
-                        Height="35"
-                        BorderThickness="0"
-                        Foreground="#2b2b2b"
-                        Command="{Binding AddCommand}">
+                        <Button Content="Add new task"
+                                FontSize="20"
+                                Grid.Column="0"
+                                Margin="2,2,2,20"
+                                Height="35"
+                                BorderThickness="0"
+                                Foreground="#2b2b2b"
+                                Command="{Binding AddCommand}">
 
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#bf8a4c"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#d6a872"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="#bf8a4c"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#d6a872"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
 
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border CornerRadius="3"
-                                    Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border CornerRadius="3"
+                                            Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center"
+                                                          HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
 
-                <Button Content="Remove checked"
-                        Grid.Column="1"
-                        Margin="2"
-                        Height="35"
-                        BorderThickness="0"
-                        FontSize="20"
-                        Foreground="#2b2b2b"
-                        Command="{Binding DeleteCommand}">
+                        <Button Content="Remove checked"
+                                Grid.Column="1"
+                                Margin="2,2,2,20"
+                                Height="35"
+                                BorderThickness="0"
+                                FontSize="20"
+                                Foreground="#2b2b2b"
+                                Command="{Binding DeleteCommand}">
 
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#bf8a4c"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#d6a872"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="#bf8a4c"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#d6a872"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
 
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border CornerRadius="3"
-                                    Background="{TemplateBinding Background}">
-                                <ContentPresenter VerticalAlignment="Center"
-                                                  HorizontalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border CornerRadius="3"
+                                            Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center"
+                                                          HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Grid>
+
+                </StackPanel>
+
             </Grid>
-
-        </StackPanel>
-
-    </Grid>
+            
+        </Grid>
+        
+    </Border>
+    
 </Window>
