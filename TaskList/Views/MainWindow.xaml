@@ -23,7 +23,7 @@
     </Window.DataContext>
 
     <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="0" ResizeBorderThickness="4"/>
+        <WindowChrome CaptionHeight="0" ResizeBorderThickness="8"/>
     </WindowChrome.WindowChrome>
 
     <Window.Effect>
@@ -260,8 +260,10 @@
 
                                         <TextBlock Text="{Binding SomeData}"
                                                    Margin="20,10,0,0"
-                                                   Foreground="Gray"
-                                                   FontSize="10"
+                                                   Foreground="#6d6b41"
+                                                   FontWeight="Bold"
+                                                   FontSize="12"
+                                                   
                                                    TextWrapping="Wrap"/>
                                     </StackPanel>
                                 </Border>
