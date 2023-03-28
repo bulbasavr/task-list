@@ -10,7 +10,7 @@
         x:Name="MWindow"
         Title="TaskList"
         Height="680"
-        Width="480"
+        Width="440"
         MinHeight="78"
         MinWidth="155"
         WindowStyle="None"
@@ -68,10 +68,10 @@
 
                         <Button.Style>
                             <Style TargetType="Button">
-                                <Setter Property="Background" Value="Green"/>
+                                <Setter Property="Background" Value="#6d6b41"/>
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#d6a872"/>
+                                        <Setter Property="Background" Value="#969460"/>
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -133,10 +133,10 @@
 
                         <Button.Style>
                             <Style TargetType="Button">
-                                <Setter Property="Background" Value="Red"/>
+                                <Setter Property="Background" Value="#c04b3e"/>
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#d6a872"/>
+                                        <Setter Property="Background" Value="#e0685a"/>
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
