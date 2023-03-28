@@ -10,13 +10,15 @@
         x:Name="MWindow"   
         Title="TaskList"
         Height="590"
-        Width="40"
+        Width="450"
         MinHeight="120"
-        MinWidth="420">
+        MinWidth="40">
     
     <Window.DataContext>
         <vm:DataTaskVM/>
     </Window.DataContext>
+    <ScrollViewer VerticalScrollBarVisibility="Auto"
+              HorizontalScrollBarVisibility="Auto">
     
 
     <Grid HorizontalAlignment="Center">
@@ -254,4 +256,5 @@
         </StackPanel>
 
     </Grid>
+    </ScrollViewer>
 </Window>
