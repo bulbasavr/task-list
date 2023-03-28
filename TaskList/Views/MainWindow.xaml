@@ -317,6 +317,7 @@
                             BorderThickness="3"
                             CornerRadius="5">
                         <TextBox Width="380"
+                                 FontWeight="Bold"
                                  Margin="10"
                                  FontSize="15"
                                  CaretBrush="#bf8a4c"
@@ -333,10 +334,11 @@
                         </Grid.ColumnDefinitions>
 
                         <Button Content="Add new task"
-                                FontSize="20"
+                                FontSize="18"
                                 Grid.Column="0"
                                 Margin="2,2,2,20"
                                 Height="35"
+                                FontWeight="Bold"
                                 BorderThickness="0"
                                 Foreground="#2b2b2b"
                                 Command="{Binding AddCommand}">
@@ -367,8 +369,9 @@
                                 Grid.Column="1"
                                 Margin="2,2,2,20"
                                 Height="35"
+                                FontWeight="Bold"
                                 BorderThickness="0"
-                                FontSize="20"
+                                FontSize="18"
                                 Foreground="#2b2b2b"
                                 Command="{Binding DeleteCommand}">
 
