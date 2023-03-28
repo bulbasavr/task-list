@@ -48,14 +48,8 @@
                           Fill="{StaticResource GlyphBrush}"
                           Data="{Binding Path=Content, RelativeSource={RelativeSource TemplatedParent}}" />
                         </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsPressed"
-                             Value="true">
-                                <Setter TargetName="Border"
-                                Property="Background"
-                                Value="{StaticResource PressedBrush}" />
-                            </Trigger>
-                            <Trigger Property="IsEnabled"
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled"
                              Value="false">
                                 <Setter Property="Foreground"
                                 Value="{StaticResource DisabledForegroundBrush}" />
