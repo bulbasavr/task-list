@@ -10,16 +10,27 @@
         x:Name="MWindow"   
         Title="TaskList"
         Height="590"
-        Width="450"
+        Width="500"
         MinHeight="120"
         MinWidth="40">
-    
+
     <Window.DataContext>
         <vm:DataTaskVM/>
     </Window.DataContext>
-    <ScrollViewer VerticalScrollBarVisibility="Auto"
-              HorizontalScrollBarVisibility="Auto">
-    
+
+    <Window.Style>
+        <Style TargetType="Window">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="WindowStyle" Value="None" />
+            <Setter Property="ResizeMode" Value="CanResize" />
+            <Setter Property="AllowsTransparency" Value="True" />
+            <Setter Property="WindowChrome.WindowChrome">
+                <Setter.Value>
+                    <WindowChrome CaptionHeight="30" ResizeBorderThickness="20" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Style>
 
     <Grid HorizontalAlignment="Center">
 
@@ -28,6 +39,9 @@
             <RowDefinition Height="90"/>
         </Grid.RowDefinitions>
 
+    <ScrollViewer VerticalScrollBarVisibility="Auto"
+              HorizontalScrollBarVisibility="Auto">
+        
         <ListBox ItemsSource = "{Binding AllTasks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Background="{Binding Background, ElementName=MWindow}"
                  BorderThickness="0"
@@ -166,6 +180,8 @@
                 </Style>
             </ListBox.ItemContainerStyle>
         </ListBox>
+        
+    </ScrollViewer>
 
         <StackPanel Grid.Row="1"
                     Background="#373737">
@@ -256,5 +272,4 @@
         </StackPanel>
 
     </Grid>
-    </ScrollViewer>
 </Window>
