@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 
 namespace TaskList.Models
 {
     public static class DataTask
     {
-        public static ObservableCollection<Task> GetAllTasks()
+        public static BindingList<Task> GetAllTasks()
         {
             using (ApplicationContext db = new ApplicationContext())
             {
-                ObservableCollection<Task> result = new ObservableCollection<Task>();
+                BindingList<Task> result = new BindingList<Task>();
                 var allTasks = db.Task.ToArray();
                 foreach (var task in allTasks)
                 {
@@ -44,6 +44,16 @@ namespace TaskList.Models
             using (ApplicationContext db = new ApplicationContext())
             {
                 db.Task.Remove(task);
+                db.SaveChanges();
+            }
+        }
+
+        public static void EditTask(Task oldTask, bool newIsDone)
+        {
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                Task task = db.Task.FirstOrDefault(el => el.Id == oldTask.Id);
+                task.IsDone = newIsDone;
                 db.SaveChanges();
             }
         }

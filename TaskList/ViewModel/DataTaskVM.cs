@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using TaskList.Models;
 
@@ -7,7 +6,7 @@ namespace TaskList.ViewModel
 {
     public class DataTaskVM : INotifyPropertyChanged
     {
-        public ObservableCollection<Task> AllTasks { get; set; } = DataTask.GetAllTasks();
+        public BindingList<Task> AllTasks { get; set; } = DataTask.GetAllTasks();
 
         private string _newTextTask;
         public string NewTextTask
@@ -20,6 +19,26 @@ namespace TaskList.ViewModel
             }
         }
 
+        public DataTaskVM()
+        {
+            AllTasks.ListChanged += _taskList_ListChanged;
+
+        }
+
+        private void _taskList_ListChanged(object senger, ListChangedEventArgs e)
+        {
+            if (e.ListChangedType == ListChangedType.ItemChanged)
+            {
+                BindingList<Task> dbList = DataTask.GetAllTasks();
+                for (int i = 0; i < dbList.Count; i++)
+                {
+                    if (dbList[i].IsDone != AllTasks[i].IsDone)
+                    {
+                        DataTask.EditTask(dbList[i], AllTasks[i].IsDone);
+                    }
+                }
+            }
+        }
 
         private RelayCommand _addCommand;
         public RelayCommand AddCommand
