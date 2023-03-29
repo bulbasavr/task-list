@@ -25,6 +25,12 @@ namespace TaskList.ViewModel
 
         }
 
+        ~ DataTaskVM()
+        {
+            AllTasks.ListChanged -= _taskList_ListChanged;
+
+        }
+
         private void _taskList_ListChanged(object senger, ListChangedEventArgs e)
         {
             if (e.ListChangedType == ListChangedType.ItemChanged)
